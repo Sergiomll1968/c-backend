@@ -1,0 +1,14 @@
+{
+  "name": "f-backend",
+  "version": "1.0.0",
+  "description": "API description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergio Macias",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.39.0"
+  }
+}
