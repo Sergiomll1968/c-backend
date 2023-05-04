@@ -6,6 +6,7 @@
   "extends": [
     "airbnb-base"
   ],
+  "code": 120,
   "parserOptions": {
     "ecmaVersion": 14,
     "sourceType": "module"

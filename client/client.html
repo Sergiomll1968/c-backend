@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cliente</title>
+  <link rel="stylesheet" href="client.css">
+  <script src="client.js"></script>
+</head>
+
+<body>
+
+  <div id="root">
+
+    <h2>Países del mundo</h2>
+
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'All')">Todos</button>
+      <button class="tablinks" onclick="openCity(event, 'Random')">Uno al azar</button>
+      <button class="tablinks" onclick="openCity(event, 'countryStartsWithLetter')">Empiezan por letra...</button>
+    </div>
+
+    <div id="All" class="tabcontent">
+      <h3>País</h3>
+      <p>Resto de información</p>
+    </div>
+
+    <div id="Random" class="tabcontent">
+      <h3>País al azar</h3>
+      <p>Resto de información</p>
+    </div>
+
+    <div id="countryStartsWithLetter" class="tabcontent">
+      <h3>Elige una letra</h3>
+      <div class="letter">
+      <div id="A" class="letter" onclick="getLetter()">A</div>
+      <div id="B" class="letter" onclick="getLetter()">B</div>
+      <div id="C" class="letter" onclick="getLetter()">C</div>
+      <div id="D" class="letter" onclick="getLetter()">D</div>
+      <div id="E" class="letter" onclick="getLetter()">E</div>
+      <div id="F" class="letter" onclick="getLetter()">F</div>
+      <div id="G" class="letter" onclick="getLetter()">G</div>
+      <div id="H" class="letter" onclick="getLetter()">H</div>
+      <div id="I" class="letter" onclick="getLetter()">I</div>
+      <div id="j" class="letter" onclick="getLetter()">J</div>
+      <div id="K" class="letter" onclick="getLetter()">K</div>
+      <div id="L" class="letter" onclick="getLetter()">L</div>
+      <div id="M" class="letter" onclick="getLetter()">M</div>
+      <div id="N" class="letter" onclick="getLetter()">N</div>
+      <div id="O" class="letter" onclick="getLetter()">O</div>
+      <div id="P" class="letter" onclick="getLetter()">P</div>
+      <div id="Q" class="letter" onclick="getLetter()">Q</div>
+      <div id="R" class="letter" onclick="getLetter()">R</div>
+      <div id="S" class="letter" onclick="getLetter()">S</div>
+      <div id="T" class="letter" onclick="getLetter()">T</div>
+      <div id="U" class="letter" onclick="getLetter()">U</div>
+      <div id="V" class="letter" onclick="getLetter()">V</div>
+      <div id="W" class="letter" onclick="getLetter()">W</div>
+      <div id="X" class="letter" onclick="getLetter()">X</div>
+      <div id="Y" class="letter" onclick="getLetter()">Y</div>
+      <div id="Z" class="letter" onclick="getLetter()">Z</div>
+    </div>
+      <div>
+        <h4>País</h4>
+        <p>Resto de información</p>
+        <h4>País</h4>
+        <p>Resto de información</p>
+        <h4>...</h4>
+        <p>...</p>
+        <h4>País</h4>
+        <p>Resto de información</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+
+</html>
