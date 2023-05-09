@@ -21,11 +21,6 @@ router.get('/all/random', (req, res) => {
   res.json(countries[randonCountry]);
 });
 
-// router.get('/all/filterZ', (req, res) => {
-//   const filteredCountries = countries.filter((country) => country.name.common[0] === 'Z');
-//   res.json(filteredCountries[0]);
-// });
-
 router.get(/\/all\/filter./i, (req, res) => {
   const countryStartWithLetter = req.url.at(-1).toLocaleUpperCase();
   // Aquí habrá que llamar a la API de los países con fetch y quitar la llamada directa desde cliente
@@ -39,15 +34,6 @@ router.get('/number/:number', (req, res) => {
   res.json(countries[number]);
 });
 
-// Imprime nombres de variables y valores usando Array.forEach
-// Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
-//   print(val + " -> " + obj[val]);
-// });
-// imprime
-// 0 -> a
-// 1 -> b
-// 2 -> c
-
 router.get('/language/:language', (req, res) => {
   const { language } = req.params;
   const filteredCountries = countries.filter(country => {
@@ -59,20 +45,67 @@ router.get('/language/:language', (req, res) => {
 });
 
 router.get('/filter', (req, res) => {
-
   let key = Object.keys(req.query);
   key[0] = key[0].toLowerCase();
   let value = Object.values(req.query);
   value[0] = value[0].toLowerCase();
 
   const filteredCountries = countries.filter((country) => {
-    // console.log(country[key].toString());
+
+    function getAllFinalProperties(object) {
+      let properties = [];
+      for (let property in object) {
+        if ((typeof object[property] === 'object') && !Array.isArray(object[property])) {
+          let nestedProperties = getAllFinalProperties(object[property]);
+          properties = properties.concat(nestedProperties.map(np => `${property}.${np}`));
+        } else {
+          properties.push(property);
+        }
+      }
+      return properties;
+    }
+
+    let countryProperties = getAllFinalProperties(country);
+    const z = countryProperties.filter((property) => {
+      property === true;
+    });
+    console.log('con propiedad: '+z);
     return (key in country) && (country[key].toString().toLowerCase() === value[0]);
   });
-  // console.log(filteredCountries);
-  const filteredCountryNames = filteredCountries.map(country => country.name.common);
-  res.json(filteredCountryNames);
-  // res.json(filteredCountries);
+
+  // const filteredCountryNames = filteredCountries.map(country => country.name.common);
+  // res.json(filteredCountryNames);
+  res.json(filteredCountries);
+
+});
+
+router.post('/', (req, res) => {
+  const country = req.body;
+  countries.push(country);
+  res.json(country);
+});
+
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const newCountry = req.body;
+  const index = countries.findIndex((country) => country.id?.toString() === id.toString());
+  countries[index] = newCountry;
+  res.json(countries[index]);
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const newProps = req.body;
+  const index = countries.findIndex((country) => country.id?.toString() === id.toString());
+  countries[index] = { ...countries[index], ...newProps };
+  res.json(countries[index]);
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const index = countries.findIndex((country) => country.id?.toString() === id.toString());
+  countries.splice(index, 1);
+  res.json(countries);
 });
 
 export default router;
