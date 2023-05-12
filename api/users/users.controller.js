@@ -4,16 +4,18 @@ function validData(userDataToValidate) { // aquí validariamos los datos de usua
   return true;
 }
 
-export function getAll(req, res) {
-  usersService.getAll(req, res);
+export async function getAllActive(req, res) {
+  const activeUsers = await usersService.getAllActive();
+  res.json(activeUsers);
 };
 
-export function getId(req, res) {
+export function getById(req, res) {
   const { id } = req.params;
   if (isNaN(id)) {
     res.json('El ID debe ser un número');
   } else {
-    usersService.getId(id, res);
+    const userById = usersService.getById(id);
+    res.json(userById);
   }
 };
 
@@ -22,14 +24,17 @@ export function getBoss(req, res) {
   if (isNaN(id)) {
     res.json('El ID debe ser un número');
   } else {
-    usersService.getBoss(id, res);
+    const boss = usersService.getBoss(id);
+    res.json(boss);
   }
 };
 
-export function addNew(req, res) {
+export function create(req, res) {
   const { userDataToValidate } = req.body;
   if (validData(userDataToValidate)) {
-    usersService.addNew(req, res);
+    const userDataValidated = userDataToValidate;
+    newUser = usersService.addNew(userDataValidated);
+    res.json(newUser);
   } else {
     res.json('Los datos de usuario no son válidos');
   }
@@ -42,21 +47,25 @@ export function replace(req, res) {
     res.json('El ID debe ser un número');
   } else {
     if (validData(userDataToValidate)) {
-      usersService.replace(id, userDataToValidate, res);
+      const userDataValidated = userDataToValidate;
+      const replacedUser = usersService.replace(id, userDataValidated);
+      res.json(replacedUser);
     } else {
       res.json('Los datos de usuario no son válidos');
     }
   }
 };
 
-export function modify(req, res) {
+export function update(req, res) {
   const { id } = req.params;
   const userDataToValidate = req.body;
   if (isNaN(id)) {
     res.json('El ID debe ser un número');
   } else {
     if (validData(userDataToValidate)) {
-      usersService.modify(id, userDataToValidate, res);
+      const userDataValidated = userDataToValidate;
+      updatedUser = usersService.update(id, userDataValidated);
+      res.json(updatedUser);
     } else {
       res.json('Los datos de usuario no son válidos');
     }
@@ -68,7 +77,8 @@ export function logicDelete(req, res) {
   if (isNaN(id)) {
     res.json('El ID debe ser un número');
   } else {
-    usersService.logicDelete(id, res);
+    const activeUsers = usersService.logicDelete(id);
+    res.json(activeUsers);
   }
 };
 
@@ -77,6 +87,7 @@ export function hardDelete(req, res) {
   if (isNaN(id)) {
     res.json('El ID debe ser un número');
   } else {
-    usersService.hardDelete(id, res);
+    const activeUsers = usersService.hardDelete(id);
+    res.json(activeUsers);
   }
 };

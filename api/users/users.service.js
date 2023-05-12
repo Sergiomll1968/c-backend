@@ -1,33 +1,41 @@
 import * as usersRepository from './users.repository.js';
 
-export function getAll(req, res) {
-  usersRepository.getAll(req, res);
+export async function getAllActive() {
+  const activeUsers = await usersRepository.getAllActive();
+  return activeUsers;
 };
 
-export function getId(id, res) {
-  usersRepository.getId(id, res);
+export function getById(id) {
+  const userById = usersRepository.getById(id);
+  return userById;
 };
 
-export function getBoss(id, res) {
-  usersRepository.getBoss(id, res);
+export function getBoss(id) {
+  const boss = usersRepository.getBoss(id);
+  return boss;
 };
 
-export function addNew(req, res) {
-  usersRepository.addNew(req, res);
+export function create(userDataValidated) {
+  const newUser = usersRepository.addNew(userDataValidated);
+  return newUser;
 };
 
-export function replace(id, userDataToValidate, res) {
-  usersRepository.replace(id, userDataToValidate, res);
+export function replace(id, userDataValidated) {
+  const replacedUser = usersRepository.replace(id, userDataValidated);
+  return replacedUser;
 };
 
-export function modify(id, userDataToValidate, res) {
-  usersRepository.modify(id, userDataToValidate, res);
+export function update(id, userDataValidated) {
+  const updatedUser = usersRepository.update(id, userDataValidated);
+  return updatedUser;
 };
 
-export function logicDelete(id, res) {
-  usersRepository.logicDelete(id, res);
+export function logicDelete(id) {
+  const activeUsers = usersRepository.logicDelete(id);
+  return activeUsers;
 };
 
-export function hardDelete(id, res) {
-  usersRepository.hardDelete(id, res);
+export function hardDelete(id) {
+  const activeUsers = usersRepository.hardDelete(id);
+  return activeUsers;
 };
