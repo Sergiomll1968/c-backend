@@ -5,8 +5,8 @@ export async function getAllActive() {
   return activeUsers;
 };
 
-export function getById(id) {
-  const userById = usersRepository.getById(id);
+export async function getById({ id }) {
+  const userById = await usersRepository.getById({ id });
   return userById;
 };
 

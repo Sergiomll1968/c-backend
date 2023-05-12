@@ -9,14 +9,10 @@ export async function getAllActive(req, res) {
   res.json(activeUsers);
 };
 
-export function getById(req, res) {
+export async function getById(req, res) {
   const { id } = req.params;
-  if (isNaN(id)) {
-    res.json('El ID debe ser un número');
-  } else {
-    const userById = usersService.getById(id);
-    res.json(userById);
-  }
+  const userById = await usersService.getById({ id });
+  res.json(userById);
 };
 
 export function getBoss(req, res) {

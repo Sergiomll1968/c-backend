@@ -1,5 +1,5 @@
 // import users from './users.database.js';
-import userModel  from "./users.model.js";
+import userModel from "./users.model.js";
 
 // function getActiveUsers() {
 //   return users.filter(user => !user.deleted);
@@ -12,7 +12,7 @@ import userModel  from "./users.model.js";
 
 export async function getAllActive() {
   const activeUsers = await userModel
-    .find({ deleted: false})
+    .find({ deleted: false })
     .populate({
       path: "boss",
       select: 'username -_id'
@@ -21,14 +21,20 @@ export async function getAllActive() {
   return activeUsers;
 };
 
-export function getById(id) {
-  const activeUsers = getActiveUsers(users);
-  const index = activeUsers.findIndex((activeUser) => activeUser.id?.toString() === id.toString());
-  if (index >= 0) {
-    return activeUsers[index];
-  } else {
-    return 'No existe el usuario con ese ID';
-  }
+// export function getById(id) {
+//   const activeUsers = getActiveUsers(users);
+//   const index = activeUsers.findIndex((activeUser) => activeUser.id?.toString() === id.toString());
+//   if (index >= 0) {
+//     return activeUsers[index];
+//   } else {
+//     return 'No existe el usuario con ese ID';
+//   }
+// };
+
+export async function getById({ id }) {
+  const userById = await userModel
+    .findById(id);
+  return userById;
 };
 
 export function getBoss(id) {
