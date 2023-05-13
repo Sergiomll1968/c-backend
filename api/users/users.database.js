@@ -7,10 +7,10 @@ export default [
     address: {
       direction: '1',
       number: 1,
-      zipcode: 1
+      zipcode: 1,
     },
     phone: 1,
-    deleted: false
+    deleted: false,
   },
   {
     id: 2,
@@ -20,10 +20,10 @@ export default [
     address: {
       direction: '2',
       number: 2,
-      zipcode: 2
+      zipcode: 2,
     },
     phone: 2,
-    deleted: false
+    deleted: false,
   },
   {
     id: 3,
@@ -33,11 +33,11 @@ export default [
     address: {
       direction: '3',
       number: 3,
-      zipcode: 3
+      zipcode: 3,
     },
     phone: 3,
     boss: 1,
-    deleted: false
+    deleted: false,
   },
   {
     id: 4,
@@ -47,11 +47,11 @@ export default [
     address: {
       direction: '4',
       number: 4,
-      zipcode: 4
+      zipcode: 4,
     },
     phone: 4,
     boss: 2,
-    deleted: false
+    deleted: false,
   },
   {
     id: 5,
@@ -61,11 +61,11 @@ export default [
     address: {
       direction: '5',
       number: 5,
-      zipcode: 5
+      zipcode: 5,
     },
     phone: 5,
     boss: 1,
-    deleted: false
+    deleted: false,
   },
   {
     id: 6,
@@ -75,11 +75,11 @@ export default [
     address: {
       direction: '6',
       number: 6,
-      zipcode: 6
+      zipcode: 6,
     },
     phone: 6,
     boss: 2,
-    deleted: false
+    deleted: false,
   },
   {
     id: 7,
@@ -89,10 +89,10 @@ export default [
     address: {
       direction: '7',
       number: 7,
-      zipcode: 7
+      zipcode: 7,
     },
     phone: 7,
     boss: 1,
-    deleted: false
+    deleted: false,
   },
 ];

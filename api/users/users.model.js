@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const { ObjectId } = Schema.Types;
 
@@ -20,6 +20,9 @@ const userSchema = new Schema({
     type: ObjectId,
     ref: 'User', // Hace referencia donde buscar. En este caso busca en la colección llamada 'users' (se debe poner dicho nombre con la primera en mayuscula y en singular.)
   },
+}, {
+  collection: 'User',
+  versionKey: false,
 });
 
 const userModel = model('User', userSchema);
