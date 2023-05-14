@@ -78,16 +78,27 @@ export async function create({ userDataValidated }) {
   return newUser;
 }
 
-export function replace(id, userDataToValidate) {
-  const activeUsers = getActiveUsers(users);
-  const index = activeUsers.findIndex((user) => user.id?.toString() === id.toString());
-  if ((index >= 0) && !activeUsers[index].deleted) {
-    // activeUsers[index] = { id: id, ...userDataToValidate }; Este id viene como string y concatenaria al hacer un nuevo put sobre el ultimo objeto de users
-    activeUsers[index] = { ...userDataToValidate, id: activeUsers[index].id };
-    return activeUsers[index];
-  } else {
-    return 'No existe el usuario con ese ID';
-  }
+// export function replace(id, userDataToValidate) {
+//   const activeUsers = getActiveUsers(users);
+//   const index = activeUsers.findIndex((user) => user.id?.toString() === id.toString());
+//   if ((index >= 0) && !activeUsers[index].deleted) {
+//     activeUsers[index] = { id: id, ...userDataToValidate };
+//       El id  de la linea anterior viene como string.
+//       Concatenaria al hacer un nuevo put sobre el ultimo objeto de users.
+//       Mejor usar el siguiente:
+//     activeUsers[index] = { ...userDataToValidate, id: activeUsers[index].id };
+//     return activeUsers[index];
+//   }
+//   return 'No existe el usuario con ese ID';
+// }
+
+export async function replace({ id }, { userDataValidated }) {
+  const userToReplace = { ...userDataValidated };
+  const replacedUser = await userModel
+    .findOneAndReplace({ username: id.id }, userToReplace, { returnNewDocument: true })
+    .lean();
+  console.log(replacedUser);
+  return replacedUser;
 }
 
 export function update(id, userDataValidated) {

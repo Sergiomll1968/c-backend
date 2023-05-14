@@ -6,29 +6,29 @@ export async function getAllActive(req, res) {
 }
 
 export async function getById(req, res) {
-  const { id } = req.params;
+  const id = req.params;
   const userById = await usersService.getById({ id });
   res.json(userById);
 }
 
 export async function getBoss(req, res) {
-  const { id } = req.params;
+  const id = req.params;
   const boss = await usersService.getBoss({ id });
   res.json(boss);
 }
 
 export async function create(req, res) {
-  // const { userDataToValidate } = req.body;
-  const userDataValidated = req.body;
+  const userDataToValidate = req.body;
+  const userDataValidated = userDataToValidate;
   const newUser = await usersService.create({ userDataValidated });
   res.json(newUser);
 }
 
-export function replace(req, res) {
-  const { id } = req.params;
+export async function replace(req, res) {
+  const id = req.params;
   const userDataToValidate = req.body;
   const userDataValidated = userDataToValidate;
-  const replacedUser = usersService.replace(id, userDataValidated);
+  const replacedUser = await usersService.replace({ id }, { userDataValidated });
   res.json(replacedUser);
 }
 

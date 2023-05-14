@@ -20,8 +20,8 @@ export async function create({ userDataValidated }) {
   return newUser;
 }
 
-export function replace(id, userDataValidated) {
-  const replacedUser = usersRepository.replace(id, userDataValidated);
+export async function replace({ id }, { userDataValidated }) {
+  const replacedUser = await usersRepository.replace({ id }, { userDataValidated });
   return replacedUser;
 }
 
