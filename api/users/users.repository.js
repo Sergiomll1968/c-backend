@@ -21,6 +21,23 @@ export async function getAllActive() {
   return activeUsers;
 }
 
+export async function getAllLength() {
+  const usersLength = await userModel
+    .countDocuments({ deleted: false });
+  return usersLength;
+}
+
+export async function getByIndex({ index }) {
+  const user = await userModel
+    .findOne({}).skip(index)
+    .populate({
+      path: 'boss',
+      select: 'username -_id',
+    })
+    .lean();
+  return user;
+}
+
 // export function getById(id) {
 //   const activeUsers = getActiveUsers(users);
 //   const index = activeUsers.findIndex((activeUser)=>
@@ -34,8 +51,22 @@ export async function getAllActive() {
 
 export async function getById({ id }) {
   const userById = await userModel
-    .findById(id);
+    .findById(id)
+    .populate({
+      path: 'boss',
+      select: 'username -_id',
+    });
   return userById;
+}
+
+export async function getByFilter({ filter }) {
+  const filteredUsers = await userModel
+    .find({ deleted: false, ...filter })
+    .populate({
+      path: 'boss',
+      select: 'username -_id',
+    });
+  return filteredUsers;
 }
 
 // export function getBoss(id) {
@@ -59,7 +90,7 @@ export async function getById({ id }) {
 
 export async function getBoss({ id }) {
   const activeUsers = await userModel
-    .find({ deleted: false, boss: Object.values(id) })
+    .find({ deleted: false, boss: Object.values(id.id) })
     .lean();
   return activeUsers;
 }
@@ -72,9 +103,8 @@ export async function getBoss({ id }) {
 // }
 
 export async function create({ userDataValidated }) {
-  const newUserToCreate = { ...userDataValidated, deleted: false };
   const newUser = await userModel
-    .create(newUserToCreate);
+    .create(userDataValidated);
   return newUser;
 }
 
@@ -92,45 +122,36 @@ export async function create({ userDataValidated }) {
 //   return 'No existe el usuario con ese ID';
 // }
 
-export async function replace({ id }, { userDataValidated }) {
-  const userToReplace = { ...userDataValidated };
+export async function replace({ id, userDataValidated }) {
   const replacedUser = await userModel
-    .findOneAndReplace({ username: id.id }, userToReplace, { returnNewDocument: true })
+    .findOneAndReplace({
+      _id: id,
+    }, userDataValidated, { new: true })
     .lean();
-  console.log(replacedUser);
   return replacedUser;
 }
 
-export function update(id, userDataValidated) {
-  const activeUsers = getActiveUsers(users);
-  const index = activeUsers.findIndex((user) => user.id?.toString() === id.toString());
-  if ((index >= 0) && !activeUsers[index].deleted) {
-    // activeUsers[index] = { ...activeUsers[index], ...newProps, id: id }; Este id viene como string y concatenaria al hacer un nuevo patch sobre el ultimo objeto de users
-    activeUsers[index] = { ...activeUsers[index], ...userDataValidated, id: activeUsers[index].id };
-    return activeUsers[index];
-  } else {
-    return 'No existe el usuario con ese ID';
-  }
+export async function update({ id, userDataValidated }) {
+  const updatedUser = await userModel
+    .findOneAndUpdate({ _id: id }, userDataValidated, { new: true })
+    .lean();
+  return updatedUser;
 }
 
-export function logicDelete(id) {
-  const activeUsers = getActiveUsers(users);
-  const index = activeUsers.findIndex((user) => user.id?.toString() === id.toString());
-  if ((index >= 0) && !activeUsers[index].deleted) {
-    activeUsers[index].deleted = true;
-    return activeUsers;
-  } else {
-    return 'No existe el usuario con ese ID';
-  }
+export async function logicDelete({ id }) {
+  await userModel
+    .findByIdAndUpdate({ _id: id }, { deleted: true }, { new: true })
+    .lean();
+  const activeUsers = await userModel
+    .find({ deleted: false });
+  return activeUsers;
 }
 
-export function hardDelete(id) {
-  const activeUsers = getActiveUsers(users);
-  const index = activeUsers.findIndex((user) => user.id?.toString() === id.toString());
-  if ((index >= 0) && !activeUsers[index].deleted) {
-    activeUsers.splice(index, 1);
-    return activeUsers;
-  } else {
-    return 'No existe el usuario con ese ID';
-  }
+export async function hardDelete({ id }) {
+  await userModel
+    .findByIdAndDelete(id)
+    .lean();
+  const activeUsers = await userModel
+    .find({ deleted: false });
+  return activeUsers;
 }

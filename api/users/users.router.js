@@ -5,7 +5,10 @@ import * as usersController from './users.controller.js';
 const router = Router();
 
 router.get('/all', usersController.getAllActive);
-router.get('/:id', usersController.getById);
+router.get('/all/length', usersController.getAllLength);
+router.get('/random', usersController.getRandom);
+router.get('/id/:id', usersController.getById);
+router.get('/filter', usersController.getByFilter);
 router.get('/boss/:id', usersController.getBoss);
 
 router.post('/', usersController.create);

@@ -5,10 +5,26 @@ export async function getAllActive(req, res) {
   res.json(activeUsers);
 }
 
+export async function getAllLength(req, res) {
+  const usersLength = await usersService.getAllLength();
+  res.json(usersLength);
+}
+
+export async function getRandom(req, res) {
+  const randomUser = await usersService.getRandom();
+  res.json(randomUser);
+}
+
 export async function getById(req, res) {
   const id = req.params;
   const userById = await usersService.getById({ id });
   res.json(userById);
+}
+
+export async function getByFilter(req, res) {
+  const filter = req.query;
+  const filteredUsers = await usersService.getByFilter({ filter });
+  res.json(filteredUsers);
 }
 
 export async function getBoss(req, res) {
@@ -25,29 +41,29 @@ export async function create(req, res) {
 }
 
 export async function replace(req, res) {
-  const id = req.params;
+  const { id } = req.params;
   const userDataToValidate = req.body;
   const userDataValidated = userDataToValidate;
-  const replacedUser = await usersService.replace({ id }, { userDataValidated });
+  const replacedUser = await usersService.replace({ id, userDataValidated });
   res.json(replacedUser);
 }
 
-export function update(req, res) {
+export async function update(req, res) {
   const { id } = req.params;
   const userDataToValidate = req.body;
   const userDataValidated = userDataToValidate;
-  const updatedUser = usersService.update(id, userDataValidated);
+  const updatedUser = await usersService.update({ id, userDataValidated });
   res.json(updatedUser);
 }
 
-export function logicDelete(req, res) {
+export async function logicDelete(req, res) {
   const { id } = req.params;
-  const activeUsers = usersService.logicDelete(id);
+  const activeUsers = await usersService.logicDelete({ id });
   res.json(activeUsers);
 }
 
-export function hardDelete(req, res) {
+export async function hardDelete(req, res) {
   const { id } = req.params;
-  const activeUsers = usersService.hardDelete(id);
+  const activeUsers = await usersService.hardDelete({ id });
   res.json(activeUsers);
 }
