@@ -59,6 +59,16 @@ export async function getById({ id }) {
   return userById;
 }
 
+export async function getByUsername({ username }) {
+  const userByUsername = await userModel
+    .findOne({ username })
+    .populate({
+      path: 'boss',
+      select: 'username -_id',
+    });
+  return userByUsername;
+}
+
 export async function getByFilter({ filter }) {
   const filteredUsers = await userModel
     .find({ deleted: false, ...filter })
@@ -102,9 +112,9 @@ export async function getBoss({ id }) {
 //   return newUser;
 // }
 
-export async function create({ userDataValidated }) {
+export async function create({ username, password }) {
   const newUser = await userModel
-    .create(userDataValidated);
+    .create(username, password);
   return newUser;
 }
 
