@@ -17,6 +17,11 @@ export async function getRandom() {
   return randomUser;
 }
 
+export async function getByUsername({ username }) {
+  const user = await usersRepository.getByUsername({ username });
+  return user;
+}
+
 export async function getById({ id }) {
   const userById = await usersRepository.getById({ id });
   return userById;

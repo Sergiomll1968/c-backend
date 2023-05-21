@@ -19,7 +19,7 @@ export async function register(req, res) {
     return;
   }
 
-  res.json({ token });
+  res.json(token);
 }
 
 export async function login(req, res) {
@@ -41,5 +41,5 @@ export async function login(req, res) {
     return;
   }
 
-  res.json({ token });
+  res.json(token);
 }
