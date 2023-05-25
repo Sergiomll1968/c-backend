@@ -1,6 +1,24 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 form {border: 3px solid #44ccd6;}
 
+.allUsersContainer {
+  display: grid;
+  grid-template-columns: auto auto auto 3% 3%;
+  grid-gap: 10px;
+  padding: 10px;
+  align-items: center;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.iconImg {
+  width: 20px;
+}
+
+.userInfo {
+  background-color: lightgrey;
+}
+
 input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
